@@ -1,0 +1,226 @@
+import java.util.Random;
+
+import javax.microedition.lcdui.Graphics;
+
+/**
+ * DESCRIPTION GOES HERE.
+ * @version \$Id$
+ */
+public class OldPipe
+{
+	public static final int SHAPE_STRAIGHT = 0;
+	public static final int SHAPE_CORNER = 1;
+	public static final int SHAPE_T = 2;
+	public static final int SHAPE_CROSS = 3;
+	public static final int SHAPE_BUTT = 4;
+	private static final int SHAPE_MAX = SHAPE_BUTT;
+
+	public static final int UP = 0;
+	public static final int RIGHT = 1;
+	public static final int DOWN = 2;
+	public static final int LEFT = 3;
+
+	private static final int ROT_MIN = UP;
+	private static final int ROT_MAX = LEFT;
+
+	private static Random random = new Random();
+	private static int size = 9;
+	private int shape;
+	private int rotation;
+
+	protected int x;
+	protected int y;
+
+	public OldPipe()
+	{
+
+	}
+
+	public OldPipe(int shape)
+	{
+		this.shape = shape;
+	}
+
+	public void paint(Graphics g)
+	{
+		g.setColor(0x000000); // black background
+		g.fillRect(x, y, size, size);
+
+		g.setColor(0xFF0000); // red
+		switch (shape)
+		{
+			case SHAPE_STRAIGHT:
+				// Left to right
+				switch (rotation)
+				{
+					case UP:
+					case DOWN:
+						g.fillRect(x, y + (size / 3), size, size / 3);
+						break;
+					case LEFT:
+					case RIGHT:
+						g.fillRect(x + (size / 3), y, size / 3, size);
+						break;
+				}
+				break;
+			case SHAPE_CORNER:
+				g.fillArc(x + (size / 3), y + (size / 3), size / 3, size / 3, 0, 360); // center ball
+				switch (rotation) // arms
+				{
+					case UP:
+						// Left to top
+						g.fillRect(x, y + (size / 3), size / 2, size / 3); // left
+						g.fillRect(x + (size / 3), y, size / 3, size / 2); // top
+						break;
+					case RIGHT:
+						// Right to top
+						g.fillRect(x + (size / 2) + 1, y + (size / 3), size / 2, size / 3); // right
+						g.fillRect(x + (size / 3), y, size / 3, size / 2); // top
+						break;
+					case DOWN:
+						// Right to bottom
+						g.fillRect(x + (size / 2) + 1, y + (size / 3), size / 2, size / 3); // right
+						g.fillRect(x + (size / 3), y + (size / 2) + 1, size / 3, size / 2); // bottom
+						break;
+					case LEFT:
+						// Left to bottom
+						g.fillRect(x, y + (size / 3), size / 2, size / 3); // left
+						g.fillRect(x + (size / 3), y + (size / 2) + 1, size / 3, size / 2); // bottom
+						break;
+				}
+				break;
+			case SHAPE_T:
+				switch (rotation)
+				{
+					case UP:
+						// Left to right, plus top
+						g.fillRect(x, y + (size / 3), size, size / 3);
+						g.fillRect(x + (size / 3), y, size / 3, size / 3);
+						break;
+					case RIGHT:
+						// Top to bottom, plus right
+						g.fillRect(x + (2 * size / 3), y + (size / 3), size / 3, size / 3);
+						g.fillRect(x + (size / 3), y, size / 3, size);
+						break;
+					case DOWN:
+						// Left to right, plus bottom
+						g.fillRect(x, y + (size / 3), size, size / 3);
+						g.fillRect(x + (size / 3), y + (2 * size / 3), size / 3, size / 3);
+						break;
+					case LEFT:
+						// Top to bottom, plus left
+						g.fillRect(x, y + (size / 3), size / 3, size / 3);
+						g.fillRect(x + (size / 3), y, size / 3, size);
+						break;
+
+				}
+				break;
+			case SHAPE_CROSS:
+				// Looks the same in all positions - no need to check for rotation
+				g.fillRect(x, y + (size / 3), size, size / 3);
+				g.fillRect(x + (size / 3), y, size / 3, size);
+				break;
+			case SHAPE_BUTT:
+				g.fillArc(x + (size / 3), y + (size / 3), size / 3, size / 3, 0, 360); // center ball
+				switch (rotation)
+				{
+					case UP:
+						g.fillRect(x + (size / 3), y, size / 3, size / 2);
+						break;
+					case RIGHT:
+						g.fillRect(x + (size / 2), y + (size / 3), size / 2 + 1, size / 3);
+						break;
+					case DOWN:
+						g.fillRect(x + (size / 3), y + (size / 2), size / 3, size / 2 + 1);
+						break;
+					case LEFT:
+						g.fillRect(x, y + (size / 3), size / 2, size / 3);
+						break;
+
+				}
+				break;
+			default:
+				// Unknown shape - WTF?
+				System.out.println("Pipe.paint(): shape = " + shape);
+				g.fillRect(x, y, size, size);
+				break;
+		}
+	}
+
+	public void rotate(boolean clockwise)
+	{
+		if (clockwise)
+		{
+			++rotation;
+			if (rotation > ROT_MAX)
+			{
+				rotation = ROT_MIN;
+			}
+		}
+		else
+		{
+			--rotation;
+			if (rotation < ROT_MIN)
+			{
+				rotation = ROT_MAX;
+			}
+		}
+	}
+
+	public static OldPipe createRandomPipe()
+	{
+		OldPipe p = new OldPipe((Math.abs(random.nextInt()) % (SHAPE_MAX + 1)));
+		p.setRotation((Math.abs(random.nextInt()) % (4)));
+		return p;
+	}
+
+	public int getShape()
+	{
+		return shape;
+	}
+
+	public void setShape(int shape)
+	{
+		this.shape = shape;
+	}
+
+	public int getRotation()
+	{
+		return rotation;
+	}
+
+	public void setRotation(int rotation)
+	{
+		this.rotation = rotation;
+	}
+
+	public static int getSize()
+	{
+		return size;
+	}
+
+	public static void setSize(int size)
+	{
+		OldPipe.size = size;
+	}
+
+	public int getX()
+	{
+		return x;
+	}
+
+	public void setX(int x)
+	{
+		this.x = x;
+	}
+
+	public int getY()
+	{
+		return y;
+	}
+
+	public void setY(int y)
+	{
+		this.y = y;
+	}
+}

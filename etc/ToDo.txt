@@ -1,0 +1,3 @@
+- Speed up PipesCanvas.checkConnections() more if possible
+  (Custom stack class?)
+- Change the color scheme?
