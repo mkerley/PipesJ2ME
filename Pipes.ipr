@@ -181,7 +181,7 @@
       <module fileurl="file://$PROJECT_DIR$/Pipes.iml" filepath="$PROJECT_DIR$/Pipes.iml" />
     </modules>
   </component>
-  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="false" project-jdk-name="J2ME Wireless Toolkit 1.0.4_02" />
+  <component name="ProjectRootManager" version="2" assert-keyword="true" jdk-15="false" project-jdk-name="Sun Java Wireless Toolkit  2.3" />
   <component name="RmicSettings">
     <option name="IS_EANABLED" value="false" />
     <option name="DEBUGGING_INFO" value="true" />

@@ -133,10 +133,10 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="PipesMIDlet.java" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/PipesMIDlet.java">
+      <file leaf-file-name="PipesCanvas.java" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/PipesCanvas.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="15" column="24" selection-start="363" selection-end="363" vertical-scroll-proportion="0.09219858">
+            <state line="325" column="29" selection-start="8291" selection-end="8291" vertical-scroll-proportion="0.9623734">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -144,10 +144,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="PipesCanvas.java" pinned="false" current="true" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/PipesCanvas.java">
+      <file leaf-file-name="PipesMIDlet.java" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/PipesMIDlet.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="295" column="0" selection-start="7409" selection-end="7409" vertical-scroll-proportion="4.184397">
+            <state line="14" column="86" selection-start="446" selection-end="446" vertical-scroll-proportion="0.28364688">
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -158,16 +158,7 @@
       <file leaf-file-name="Pipe.java" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/Pipe.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="13" column="28" selection-start="259" selection-end="259" vertical-scroll-proportion="0.014184397">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ToDo.txt" pinned="false" current="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/etc/ToDo.txt">
-          <provider selected="true" editor-type-id="text-editor">
-            <state line="1" column="23" selection-start="82" selection-end="82" vertical-scroll-proportion="0.014184397">
+            <state line="49" column="49" selection-start="1455" selection-end="1455" vertical-scroll-proportion="0.020260492">
               <folding />
             </state>
           </provider>
@@ -205,7 +196,7 @@
   </component>
   <component name="ModuleEditorState">
     <option name="LAST_EDITED_MODULE_NAME" value="Pipes" />
-    <option name="LAST_EDITED_TAB_NAME" value="Libraries (Classpath)" />
+    <option name="LAST_EDITED_TAB_NAME" value="Mobile Module Settings" />
   </component>
   <component name="NamedScopeManager" />
   <component name="PackagesPane">
@@ -275,6 +266,56 @@
         <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
       </PATH_ELEMENT>
     </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="Pipes.ipr" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="Pipes" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="PsiDirectory:D:\Documents\JavaStuff\j2me\PipesJ2ME" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="Pipes.ipr" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="Pipes" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="PsiDirectory:D:\Documents\JavaStuff\j2me\PipesJ2ME" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="PsiDirectory:D:\Documents\JavaStuff\j2me\PipesJ2ME\src" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+      </PATH_ELEMENT>
+    </PATH>
+    <PATH>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="Pipes.ipr" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewProjectNode" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="Pipes" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.ProjectViewModuleNode" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="PsiDirectory:D:\Documents\JavaStuff\j2me\PipesJ2ME" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+      </PATH_ELEMENT>
+      <PATH_ELEMENT>
+        <option name="myItemId" value="PsiDirectory:D:\Documents\JavaStuff\j2me\PipesJ2ME\res" />
+        <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+      </PATH_ELEMENT>
+    </PATH>
   </component>
   <component name="ProjectReloadState">
     <option name="STATE" value="0" />
@@ -306,7 +347,11 @@
   <component name="ReadonlyStatusHandler">
     <option name="SHOW_DIALOG" value="true" />
   </component>
-  <component name="RecentsManager" />
+  <component name="RecentsManager">
+    <key name="IntroduceConstantDialog.RECENTS_KEY">
+      <recent name="" />
+    </key>
+  </component>
   <component name="Regex">
     <option name="pos1" value="218" />
     <option name="pos2" value="218" />
@@ -320,47 +365,21 @@
   <component name="RestoreUpdateTree" />
   <component name="RunManager">
     <activeType name="#com.intellij.j2meplugin.run.J2MEConfigurationType" />
-    <tempConfiguration selected="true" default="false" name="PipesMIDlet" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
-      <module name="Pipes" />
-      <USER_OPTIONS />
-      <option name="TARGET_DEVICE_NAME" />
-      <option name="COMMAND_LINE_PARAMETERS" value="" />
-      <option name="MAIN_CLASS_NAME" value="PipesMIDlet" />
-      <option name="JAD_NAME" value="" />
-      <option name="IS_CLASSES" value="true" />
-      <option name="IS_OTA" value="false" />
-      <option name="INSTALL" value="" />
-      <option name="REMOVE" />
-      <option name="RUN" />
-      <option name="TRANSIENT" value="" />
-      <option name="FORCE" />
-      <option name="TO_START" value="" />
-      <option name="SELECTION" value="1" />
-      <RunnerSettings RunnerId="Run" />
-      <RunnerSettings RunnerId="Debug">
-        <option name="DEBUG_PORT" value="1141" />
-        <option name="TRANSPORT" value="0" />
-        <option name="LOCAL" value="false" />
-      </RunnerSettings>
-      <ConfigurationWrapper RunnerId="Run" />
-      <ConfigurationWrapper RunnerId="Debug" />
-    </tempConfiguration>
-    <configuration selected="false" default="true" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
-      <module name="Pipes" />
-      <USER_OPTIONS />
-      <option name="TARGET_DEVICE_NAME" />
-      <option name="COMMAND_LINE_PARAMETERS" />
-      <option name="MAIN_CLASS_NAME" value="" />
-      <option name="JAD_NAME" value="" />
-      <option name="IS_CLASSES" value="false" />
-      <option name="IS_OTA" value="false" />
-      <option name="INSTALL" />
-      <option name="REMOVE" />
-      <option name="RUN" />
-      <option name="TRANSIENT" />
-      <option name="FORCE" />
-      <option name="TO_START" />
-      <option name="SELECTION" value="0" />
+    <configuration selected="false" default="true" type="Remote" factoryName="Remote">
+      <option name="USE_SOCKET_TRANSPORT" value="true" />
+      <option name="SERVER_MODE" value="false" />
+      <option name="SHMEM_ADDRESS" value="javadebug" />
+      <option name="HOST" value="localhost" />
+      <option name="PORT" value="5005" />
+    </configuration>
+    <configuration selected="false" default="true" type="Application" factoryName="Application">
+      <option name="MAIN_CLASS_NAME" />
+      <option name="VM_PARAMETERS" />
+      <option name="PROGRAM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
+      <option name="ALTERNATIVE_JRE_PATH" />
+      <module name="" />
     </configuration>
     <configuration selected="false" default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -373,6 +392,23 @@
       <option name="VM_PARAMETERS" />
       <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
       <option name="ALTERNATIVE_JRE_PATH" />
+    </configuration>
+    <configuration selected="false" default="true" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
+      <module name="Pipes" />
+      <USER_OPTIONS />
+      <option name="TARGET_DEVICE_NAME" />
+      <option name="COMMAND_LINE_PARAMETERS" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="JAD_NAME" value="D:\Documents\JavaStuff\j2me\PipesJ2ME\Pipes.jad" />
+      <option name="IS_CLASSES" value="false" />
+      <option name="IS_OTA" value="false" />
+      <option name="INSTALL" />
+      <option name="REMOVE" />
+      <option name="RUN" />
+      <option name="TRANSIENT" />
+      <option name="FORCE" />
+      <option name="TO_START" />
+      <option name="SELECTION" value="0" />
     </configuration>
     <configuration selected="false" default="true" type="JUnit" factoryName="JUnit">
       <module name="" />
@@ -390,21 +426,104 @@
         <value defaultName="wholeProject" />
       </option>
     </configuration>
-    <configuration selected="false" default="true" type="Remote" factoryName="Remote">
-      <option name="USE_SOCKET_TRANSPORT" value="true" />
-      <option name="SERVER_MODE" value="false" />
-      <option name="SHMEM_ADDRESS" value="javadebug" />
-      <option name="HOST" value="localhost" />
-      <option name="PORT" value="5005" />
+    <configuration selected="false" default="false" name="LargeGray" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
+      <module name="Pipes" />
+      <USER_OPTIONS />
+      <option name="TARGET_DEVICE_NAME" value="LargeGrayPhone" />
+      <option name="COMMAND_LINE_PARAMETERS" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="JAD_NAME" value="D:\Documents\JavaStuff\j2me\PipesJ2ME\Pipes.jad" />
+      <option name="IS_CLASSES" value="false" />
+      <option name="IS_OTA" value="false" />
+      <option name="INSTALL" value="" />
+      <option name="REMOVE" />
+      <option name="RUN" />
+      <option name="TRANSIENT" value="" />
+      <option name="FORCE" />
+      <option name="TO_START" value="" />
+      <option name="SELECTION" value="1" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
     </configuration>
-    <configuration selected="false" default="true" type="Application" factoryName="Application">
-      <option name="MAIN_CLASS_NAME" />
-      <option name="VM_PARAMETERS" />
-      <option name="PROGRAM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <module name="" />
+    <configuration selected="false" default="false" name="LargeColor" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
+      <module name="Pipes" />
+      <USER_OPTIONS />
+      <option name="TARGET_DEVICE_NAME" value="DefaultColorPhone" />
+      <option name="COMMAND_LINE_PARAMETERS" value="" />
+      <option name="MAIN_CLASS_NAME" value="PipesMIDlet" />
+      <option name="JAD_NAME" value="D:\Documents\JavaStuff\j2me\PipesJ2ME\Pipes.jad" />
+      <option name="IS_CLASSES" value="false" />
+      <option name="IS_OTA" value="false" />
+      <option name="INSTALL" value="" />
+      <option name="REMOVE" />
+      <option name="RUN" />
+      <option name="TRANSIENT" value="" />
+      <option name="FORCE" />
+      <option name="TO_START" value="" />
+      <option name="SELECTION" value="1" />
+      <RunnerSettings RunnerId="Debug">
+        <option name="DEBUG_PORT" value="1141" />
+        <option name="TRANSPORT" value="0" />
+        <option name="LOCAL" value="false" />
+      </RunnerSettings>
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Debug" />
+      <ConfigurationWrapper RunnerId="Run" />
+    </configuration>
+    <configuration selected="true" default="false" name="SmallColor" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
+      <module name="Pipes" />
+      <USER_OPTIONS />
+      <option name="TARGET_DEVICE_NAME" value="SmallColorPhone" />
+      <option name="COMMAND_LINE_PARAMETERS" value="" />
+      <option name="MAIN_CLASS_NAME" value="PipesMIDlet" />
+      <option name="JAD_NAME" value="D:\Documents\JavaStuff\j2me\PipesJ2ME\Pipes.jad" />
+      <option name="IS_CLASSES" value="false" />
+      <option name="IS_OTA" value="false" />
+      <option name="INSTALL" value="" />
+      <option name="REMOVE" />
+      <option name="RUN" />
+      <option name="TRANSIENT" value="" />
+      <option name="FORCE" />
+      <option name="TO_START" value="" />
+      <option name="SELECTION" value="1" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
+    </configuration>
+    <configuration selected="false" default="false" name="SmallGray" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
+      <module name="Pipes" />
+      <USER_OPTIONS />
+      <option name="TARGET_DEVICE_NAME" value="DefaultGrayPhone" />
+      <option name="COMMAND_LINE_PARAMETERS" value="" />
+      <option name="MAIN_CLASS_NAME" value="" />
+      <option name="JAD_NAME" value="D:\Documents\JavaStuff\j2me\PipesJ2ME\Pipes.jad" />
+      <option name="IS_CLASSES" value="false" />
+      <option name="IS_OTA" value="false" />
+      <option name="INSTALL" value="" />
+      <option name="REMOVE" />
+      <option name="RUN" />
+      <option name="TRANSIENT" value="" />
+      <option name="FORCE" />
+      <option name="TO_START" value="" />
+      <option name="SELECTION" value="1" />
+    </configuration>
+    <configuration selected="false" default="false" name="TinyColor" type="#com.intellij.j2meplugin.run.J2MEConfigurationType" factoryName="J2ME">
+      <module name="Pipes" />
+      <USER_OPTIONS />
+      <option name="TARGET_DEVICE_NAME" value="TinyColorPhone" />
+      <option name="COMMAND_LINE_PARAMETERS" value="" />
+      <option name="MAIN_CLASS_NAME" value="PipesMIDlet" />
+      <option name="JAD_NAME" value="D:\Documents\JavaStuff\j2me\PipesJ2ME\Pipes.jad" />
+      <option name="IS_CLASSES" value="false" />
+      <option name="IS_OTA" value="false" />
+      <option name="INSTALL" value="" />
+      <option name="REMOVE" />
+      <option name="RUN" />
+      <option name="TRANSIENT" value="" />
+      <option name="FORCE" />
+      <option name="TO_START" value="" />
+      <option name="SELECTION" value="1" />
+      <RunnerSettings RunnerId="Run" />
+      <ConfigurationWrapper RunnerId="Run" />
     </configuration>
   </component>
   <component name="SelectInManager" />
@@ -421,7 +540,7 @@
   <component name="StructureViewFactory">
     <option name="AUTOSCROLL_MODE" value="true" />
     <option name="AUTOSCROLL_FROM_SOURCE" value="true" />
-    <option name="ACTIVE_ACTIONS" value="ALPHA_COMPARATOR" />
+    <option name="ACTIVE_ACTIONS" value="ALPHA_COMPARATOR,SHOW_INHERITED" />
   </component>
   <component name="SvnChangesBrowserSettings">
     <option name="USE_AUTHOR_FIELD" value="true" />
@@ -451,12 +570,12 @@
     </todo-panel>
   </component>
   <component name="ToolWindowManager">
-    <frame x="-4" y="-4" width="1608" height="1148" extended-state="7" />
+    <frame x="-4" y="-4" width="1608" height="1148" extended-state="6" />
     <editor active="true" />
     <layout>
       <window_info id="CVS" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="8" />
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.33" order="7" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.24742931" order="0" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="true" weight="0.26349613" order="0" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.3509804" order="1" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.25" order="1" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.32941177" order="8" />
@@ -543,32 +662,39 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/etc/ToDo.txt">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="3" column="20" selection-start="130" selection-end="130" vertical-scroll-proportion="0.04255319">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://C:/Java/WTK23/lib/midpapi10.jar!/javax/microedition/lcdui/Canvas.class">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="80" column="22" selection-start="2112" selection-end="2112" vertical-scroll-proportion="0.6150507">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/Pipe.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="49" column="49" selection-start="1455" selection-end="1455" vertical-scroll-proportion="0.020260492">
+          <folding />
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/src/PipesMIDlet.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="15" column="24" selection-start="363" selection-end="363" vertical-scroll-proportion="0.09219858">
+        <state line="14" column="86" selection-start="446" selection-end="446" vertical-scroll-proportion="0.28364688">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/Pipe.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="13" column="28" selection-start="259" selection-end="259" vertical-scroll-proportion="0.014184397">
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/etc/ToDo.txt">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="1" column="23" selection-start="82" selection-end="82" vertical-scroll-proportion="0.014184397">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/PipesCanvas.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="295" column="0" selection-start="7409" selection-end="7409" vertical-scroll-proportion="4.184397">
+        <state line="325" column="29" selection-start="8291" selection-end="8291" vertical-scroll-proportion="0.9623734">
           <folding>
             <element signature="imports" expanded="true" />
           </folding>

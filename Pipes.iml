@@ -8,10 +8,29 @@
     <resourceRoot path="D:\Documents\JavaStuff\j2me\Pipes\res" />
     <mobileApplicationType name="MIDP" />
   </component>
+  <component name="MIDPSettings">
+    <setting name="MIDlet-1" module.settings.user.defined.value="Pipes,/pipes.png,PipesMIDlet" />
+    <setting name="MIDlet-Description" module.settings.user.defined.value="Pipes" />
+    <setting name="MIDlet-Icon" module.settings.user.defined.value="/pipes.png" />
+    <setting name="MIDlet-Info-URL" module.settings.user.defined.value="http://mobile.kornhornio.net" />
+    <setting name="MIDlet-Jar-Size" module.settings.user.defined.value="16914" />
+    <setting name="MIDlet-Jar-URL" module.settings.user.defined.value="Pipes.jar" />
+    <setting name="MIDlet-Name" module.settings.user.defined.value="Pipes" />
+    <setting name="MIDlet-Vendor" module.settings.user.defined.value="kornhornio.net" />
+    <setting name="MIDlet-Version" module.settings.user.defined.value="1.0.8" />
+    <setting name="MicroEdition-Configuration" module.settings.user.defined.value="CLDC-1.0" />
+    <setting name="MicroEdition-Profile" module.settings.user.defined.value="MIDP-1.0" />
+    <jarUrl jarUrlName="$MODULE_DIR$/Pipes.jar" />
+    <descriptionPath path="$MODULE_DIR$/Pipes.jad" useUserDescriptor="false" />
+    <manifest useUserManifest="false" />
+  </component>
   <component name="ModuleRootManager" />
   <component name="NewModuleRootManager">
     <output url="file://$MODULE_DIR$/classes" />
     <exclude-output />
+    <content url="file://$MODULE_DIR$/../Pipes">
+      <sourceFolder url="file://$MODULE_DIR$/../Pipes/res" isTestSource="false" />
+    </content>
     <content url="file://$MODULE_DIR$">
       <sourceFolder url="file://$MODULE_DIR$/res" isTestSource="false" />
       <sourceFolder url="file://$MODULE_DIR$/src" isTestSource="false" />

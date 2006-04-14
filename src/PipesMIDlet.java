@@ -1,3 +1,4 @@
+import javax.microedition.lcdui.Font;
 import javax.microedition.lcdui.Display;
 import javax.microedition.midlet.MIDlet;
 import javax.microedition.midlet.MIDletStateChangeException;
@@ -9,35 +10,58 @@ import javax.microedition.rms.RecordStoreException;
  */
 public class PipesMIDlet extends MIDlet
 {
-	private PipesCanvas canvas;
+	public static final String[] aboutText =
+			{
+					"", // Version placeholder - this line will be replaced at runtime
+					"",
+					"Written by Kornhornio",
+					"http://www.kornhornio.net",
+					"",
+					"Concept by Ernest Pazera",
+					"http://www.playdeez.com"
+			};
+
+	public static final Font largeFont = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, Font.SIZE_LARGE);
+	public static final Font mediumFont = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, Font.SIZE_MEDIUM);
+	public static final Font smallFont = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_PLAIN, Font.SIZE_SMALL);
+
+	private PipesCanvas pipesCanvas;
+	private static PipesMIDlet instance;
 
 	public PipesMIDlet()
 	{
-		canvas = new PipesCanvas(this);
+		instance = this;
+
+		pipesCanvas = new PipesCanvas(this);
 	}
 
 	protected void startApp() throws MIDletStateChangeException
 	{
+		// Diagnostic info
+		System.out.println("Screen width:  " + pipesCanvas.getWidth());
+		System.out.println("Screen height: " + pipesCanvas.getHeight());
+
 		try
 		{
-			canvas.load();
+			pipesCanvas.load();
 		}
 		catch (Exception e)
 		{
 			// Loading failed; oh well
 			e.printStackTrace();
 
-			canvas.init();
+			pipesCanvas.init();
 		}
 
-		Display.getDisplay(this).setCurrent(canvas);
+		pipesCanvas.showAbout(2000);
+		Display.getDisplay(this).setCurrent(pipesCanvas);
 	}
 
 	protected void pauseApp()
 	{
 		try
 		{
-			canvas.save();
+			pipesCanvas.save();
 		}
 		catch (RecordStoreException e)
 		{
@@ -50,7 +74,7 @@ public class PipesMIDlet extends MIDlet
 	{
 		try
 		{
-			canvas.save();
+			pipesCanvas.save();
 		}
 		catch (RecordStoreException e)
 		{
@@ -70,5 +94,10 @@ public class PipesMIDlet extends MIDlet
 		{
 			e.printStackTrace();
 		}
+	}
+
+	public static PipesMIDlet getInstance()
+	{
+		return instance;
 	}
 }

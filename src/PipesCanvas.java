@@ -1,19 +1,10 @@
-import java.util.Random;
-import java.util.Stack;
-import java.util.Vector;
-import java.io.IOException;
-
-import javax.microedition.lcdui.Canvas;
-import javax.microedition.lcdui.Command;
-import javax.microedition.lcdui.CommandListener;
-import javax.microedition.lcdui.Displayable;
-import javax.microedition.lcdui.Graphics;
-import javax.microedition.lcdui.Image;
-import javax.microedition.lcdui.Font;
+import javax.microedition.lcdui.*;
 import javax.microedition.rms.InvalidRecordIDException;
 import javax.microedition.rms.RecordStore;
 import javax.microedition.rms.RecordStoreException;
 import javax.microedition.rms.RecordStoreNotFoundException;
+import java.io.IOException;
+import java.util.*;
 
 class PipesCanvas extends Canvas implements CommandListener
 {
@@ -32,7 +23,7 @@ class PipesCanvas extends Canvas implements CommandListener
 	/** For use in {@link #checkConnections()} */
 	private Stack toBeChecked;
 
-	private Command rotate, quit, reset, resize, ok;
+	private Command rotate, quit, reset, resize, ok, about;
 
 	private int rows = 8;
 	private int cols = 8;
@@ -41,6 +32,7 @@ class PipesCanvas extends Canvas implements CommandListener
 	private static final int MODE_GAME = 0;
 	private static final int MODE_GAME_OVER = 1;
 	private static final int MODE_RESIZE = 2;
+	private static final int MODE_ABOUT = 3;
 
 	private static final String STORE_NAME = "PipesStore";
 	private static final int STORE_SIZE_RECORD = 1;
@@ -50,6 +42,11 @@ class PipesCanvas extends Canvas implements CommandListener
 	private static final Font FONT_GAME_OVER = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD | Font.STYLE_ITALIC, Font.SIZE_LARGE);
 	private static final int COLOR_GAME_OVER = 0xff0000;
 	private static final int COLOR_GAME_OVER_SHADOW = 0x666666;
+	public static final int RESIZE_TEXT_COLOR = 0xffffff;
+	public static final int RESIZE_GRIDLINE_COLOR = RESIZE_TEXT_COLOR;
+	public static final int CURSOR_COLOR = 0xffff00;
+	public static final int GRIDLINE_COLOR = 0x646464;
+	public static final int DIM_GRIDLINE_COLOR = 0x323232;
 
 	public PipesCanvas(PipesMIDlet midlet)
 	{
@@ -61,7 +58,8 @@ class PipesCanvas extends Canvas implements CommandListener
 		rotate = new Command("Rotate", Command.SCREEN, 1);
 		reset = new Command("Reset", Command.SCREEN, 2);
 		resize = new Command("Resize", Command.SCREEN, 3);
-		quit = new Command("Quit", Command.SCREEN, 4);
+		about = new Command("About...", Command.SCREEN, 4);
+		quit = new Command("Quit", Command.SCREEN, 5);
 
 		// Resize mode commands
 		ok = new Command("OK", Command.OK, 1);
@@ -69,6 +67,7 @@ class PipesCanvas extends Canvas implements CommandListener
 		addCommand(rotate);
 		addCommand(reset);
 		addCommand(resize);
+		addCommand(about);
 		addCommand(quit);
 		setCommandListener(this);
 
@@ -94,7 +93,7 @@ class PipesCanvas extends Canvas implements CommandListener
 			return null;
 		}
 
-		Image img = null;
+		Image img;
 		for (int i = 0; i < filenames.length; ++i)
 		{
 			// Nullify any existing image so it can be cleaned up
@@ -195,7 +194,11 @@ class PipesCanvas extends Canvas implements CommandListener
 		Graphics offscreen = offscreenGraphics.getGraphics();
 		paintPipes(offscreen);
 
-		if (mode == MODE_GAME_OVER)
+		if (mode == MODE_ABOUT)
+		{
+			paintAbout(offscreen);
+		}
+		else if (mode == MODE_GAME_OVER)
 		{
 			if (imgYouWin != null)
 			{
@@ -219,7 +222,7 @@ class PipesCanvas extends Canvas implements CommandListener
 
 	private void paintPipes(Graphics g)
 	{
-		// black background
+		// Black background
 		g.setColor(0);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
@@ -238,17 +241,20 @@ class PipesCanvas extends Canvas implements CommandListener
 			{
 				for (int y = 0; y < rows; ++y)
 				{
-					pipes[x][y].paint(g);
+					pipes[x][y].paint(g, mode != MODE_ABOUT);
 				}
 			}
 
 			// Gray grid
-			g.setGrayScale(100);
+			if (mode != MODE_ABOUT)
+				g.setColor(GRIDLINE_COLOR);
+			else
+				g.setColor(DIM_GRIDLINE_COLOR);
 		}
 		else
 		{
 			// White grid
-			g.setColor(0xffffff);
+			g.setColor(RESIZE_GRIDLINE_COLOR);
 		}
 
 		// Horizontal grid lines
@@ -263,10 +269,10 @@ class PipesCanvas extends Canvas implements CommandListener
 			g.drawLine(i, 0, i, rows * (Pipe.getSize() + 1));
 		}
 
-		if (mode != MODE_RESIZE)
+		if (mode == MODE_GAME)
 		{
 			// Draw cursor
-			g.setColor(0xffff00); // yellow
+			g.setColor(CURSOR_COLOR); // yellow
 			g.drawRect(
 					cursorX * (Pipe.getSize() + 1),
 					cursorY * (Pipe.getSize() + 1),
@@ -289,8 +295,36 @@ class PipesCanvas extends Canvas implements CommandListener
 
 			g.setColor(0); // Black background
 			g.fillRect(msgXOffset - 2, msgYOffset - 2, msgWidth + 4, msgHeight + 4);
-			g.setColor(0xffffff); // White text
+			g.setColor(RESIZE_TEXT_COLOR); // White text
 			g.drawString(msg, msgXOffset, msgYOffset, Graphics.LEFT | Graphics.TOP);
+		}
+	}
+
+	private void paintAbout(Graphics g)
+	{
+		int y = 0;
+		String line;
+
+		// White text
+		g.setColor(0xffffff);
+
+		for (int i = 0; i < PipesMIDlet.aboutText.length; ++i)
+		{
+			if (i == 0)
+				line = "Pipes " + PipesMIDlet.getInstance().getAppProperty("MIDlet-Version");
+			else
+				line = PipesMIDlet.aboutText[i];
+
+			if (PipesMIDlet.largeFont.stringWidth(line) < getWidth())
+				g.setFont(PipesMIDlet.largeFont);
+			else if (PipesMIDlet.mediumFont.stringWidth(line) < getWidth())
+				g.setFont(PipesMIDlet.mediumFont);
+			else
+				// Hope this works
+				g.setFont(PipesMIDlet.smallFont);
+
+			g.drawString(line, getWidth() / 2, y, Graphics.TOP | Graphics.HCENTER);
+			y += g.getFont().getHeight();
 		}
 	}
 
@@ -311,6 +345,10 @@ class PipesCanvas extends Canvas implements CommandListener
 			break;
 		case MODE_RESIZE:
 			keyPressedResize(i);
+			break;
+		case MODE_ABOUT:
+			setMode(MODE_GAME);
+			repaint();
 			break;
 		}
 	}
@@ -462,7 +500,7 @@ class PipesCanvas extends Canvas implements CommandListener
 
 		// Loop while there are some unconnected pipes
 		Pipe p, p2 = null;
-		int direction = 0, reverseDirection = 0;
+		int direction, reverseDirection = 0;
 		while (connected.size() < connected.capacity())
 		{
 			p = (Pipe) connected.elementAt(Math.abs(random.nextInt()) % connected.size());
@@ -543,11 +581,16 @@ class PipesCanvas extends Canvas implements CommandListener
 			setMode(MODE_GAME);
 			repaint();
 		}
+		else if (command == about)
+		{
+			setMode(MODE_ABOUT);
+			repaint();
+		}
 	}
 
 	public void checkConnections()
 	{
-		Pipe p, p2 = null;
+		Pipe p, p2;
 		int x, y;
 
 		// Set all pipes to be disconnected
@@ -634,17 +677,21 @@ class PipesCanvas extends Canvas implements CommandListener
 		switch (mode)
 		{
 		case MODE_GAME:
-			removeCommand(ok);
-			addCommand(rotate);
-			addCommand(reset);
-			addCommand(resize);
-			addCommand(quit);
-			assertValidCursor();
-
-			if (oldMode != MODE_GAME)
+			if (oldMode != MODE_ABOUT)
 			{
-				init();
+				removeCommand(ok);
+				addCommand(rotate);
+				addCommand(reset);
+				addCommand(resize);
+				addCommand(quit);
+				assertValidCursor();
+
+				if (oldMode != MODE_GAME)
+				{
+					init();
+				}
 			}
+			checkConnections();
 			break;
 		case MODE_GAME_OVER:
 			// Always comes from MODE_GAME - only need to remove the reset button
@@ -830,6 +877,25 @@ class PipesCanvas extends Canvas implements CommandListener
 		{
 			cols = rows = 8;
 			init();
+		}
+	}
+
+	public void showAbout(long time)
+	{
+		setMode(MODE_ABOUT);
+		repaint();
+		new Timer().schedule(new CloseAboutTask(), time);
+	}
+
+	private class CloseAboutTask extends TimerTask
+	{
+		public void run()
+		{
+			if (mode == MODE_ABOUT)
+			{
+				setMode(MODE_GAME);
+				repaint();
+			}
 		}
 	}
 }

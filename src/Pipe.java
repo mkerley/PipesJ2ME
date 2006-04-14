@@ -27,15 +27,22 @@ public class Pipe
 
 	/** Cached value of (size / 3) - this is used a lot, so we can avoid calculating it all the time */
 	private static int size_3 = size / 3;
+	public static final int CONNECTED_COLOR = 0x00ff00;
+	public static final int DISCONNECTED_COLOR = 0xff0000;
+	public static final int DIM_CONNECTED_COLOR = 0x006600;
+	public static final int DIM_DISCONNECTED_COLOR = 0x660000;
 
 	public Pipe()
 	{
 
 	}
 
-	public void paint(Graphics g)
+	public void paint(Graphics g, boolean bright)
 	{
-		paint(g, inConnectedSet ? 0x00ff00 : 0xff0000);
+		if (bright)
+			paint(g, inConnectedSet ? CONNECTED_COLOR : DISCONNECTED_COLOR);
+		else
+			paint(g, inConnectedSet ? DIM_CONNECTED_COLOR : DIM_DISCONNECTED_COLOR);
 	}
 
 	public void paint(Graphics g, int color)
