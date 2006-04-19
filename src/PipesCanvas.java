@@ -23,11 +23,10 @@ class PipesCanvas extends Canvas implements CommandListener
 	/** For use in {@link #checkConnections()} */
 	private Stack toBeChecked;
 
-	private Command rotate, quit, reset, resize, ok, about;
+	private Command rotate, quit, reset, resize, ok, about, help;
 
 	private int rows = 8;
 	private int cols = 8;
-
 
 	private static final int MODE_GAME = 0;
 	private static final int MODE_GAME_OVER = 1;
@@ -42,6 +41,23 @@ class PipesCanvas extends Canvas implements CommandListener
 	private static final Font FONT_GAME_OVER = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD | Font.STYLE_ITALIC, Font.SIZE_LARGE);
 	private static final int COLOR_GAME_OVER = 0xff0000;
 	private static final int COLOR_GAME_OVER_SHADOW = 0x666666;
+	
+	private static final String HELP_ALERT_TITLE = "Pipes Help...";
+	private static final String HELP_ALERT_TEXT =
+			"Rules:\n" +
+			" * To win the game, you must connect all the pipe sections. Connected pipes will turn green.\n" +
+			" * There are no impossible puzzles; every game can be solved.\n" +
+			" * When the puzzle is solved, there will be no dangling sections of pipe. For example, if there is a straight piece along the bottom edge of the board, it MUST be turned so that it runs left-to-right.\n" +
+			"\n" +
+			"Controls:\n" +
+			" * Joystick - Move cursor\n" +
+			" * OK/center button - Rotate clockwise\n" +
+			"\n" +
+			"Alternate controls:\n" +
+			" * 2/4/6/8 - Move cursor\n" +
+			" * 3/5 - Rotate clockwise\n" +
+			" * 1 - Rotate counter-clockwise";
+	
 	public static final int RESIZE_TEXT_COLOR = 0xffffff;
 	public static final int RESIZE_GRIDLINE_COLOR = RESIZE_TEXT_COLOR;
 	public static final int CURSOR_COLOR = 0xffff00;
@@ -58,17 +74,15 @@ class PipesCanvas extends Canvas implements CommandListener
 		rotate = new Command("Rotate", Command.SCREEN, 1);
 		reset = new Command("Reset", Command.SCREEN, 2);
 		resize = new Command("Resize", Command.SCREEN, 3);
-		about = new Command("About...", Command.SCREEN, 4);
-		quit = new Command("Quit", Command.SCREEN, 5);
+		
+		help = new Command("Help...", Command.SCREEN, 4);
+		about = new Command("About...", Command.SCREEN, 5);
+		
+		quit = new Command("Quit", Command.SCREEN, 6);
 
 		// Resize mode commands
 		ok = new Command("OK", Command.OK, 1);
 
-		addCommand(rotate);
-		addCommand(reset);
-		addCommand(resize);
-		addCommand(about);
-		addCommand(quit);
 		setCommandListener(this);
 
 		imgYouWin = loadImage(new String[] {"/you_win_large.png", "/you_win_medium.png", "/you_win_small.png"}, getWidth(), getHeight());
@@ -311,7 +325,11 @@ class PipesCanvas extends Canvas implements CommandListener
 		for (int i = 0; i < PipesMIDlet.aboutText.length; ++i)
 		{
 			if (i == 0)
+			{
 				line = "Pipes " + PipesMIDlet.getInstance().getAppProperty("MIDlet-Version");
+//#debug debug
+//# 				line += "d"; // Add a debug marker to the version (ie. 1.0.10d)
+			}
 			else
 				line = PipesMIDlet.aboutText[i];
 
@@ -586,6 +604,12 @@ class PipesCanvas extends Canvas implements CommandListener
 			setMode(MODE_ABOUT);
 			repaint();
 		}
+		else if (command == help)
+		{
+			Alert alert = new Alert(HELP_ALERT_TITLE, HELP_ALERT_TEXT, null, null);
+			alert.setTimeout(Alert.FOREVER);
+			Display.getDisplay(PipesMIDlet.getInstance()).setCurrent(alert);
+		}
 	}
 
 	public void checkConnections()
@@ -673,35 +697,41 @@ class PipesCanvas extends Canvas implements CommandListener
 	{
 		int oldMode = this.mode;
 		this.mode = mode;
+		
+		// First remove all commands
+		removeCommand(ok);
+		removeCommand(rotate);
+		removeCommand(reset);
+		removeCommand(resize);
+		removeCommand(quit);
+		removeCommand(about);
+		removeCommand(help);
 
 		switch (mode)
 		{
 		case MODE_GAME:
-			if (oldMode != MODE_ABOUT)
-			{
-				removeCommand(ok);
-				addCommand(rotate);
-				addCommand(reset);
-				addCommand(resize);
-				addCommand(quit);
-				assertValidCursor();
+			addCommand(rotate);
+			addCommand(reset);
+			addCommand(resize);
+			addCommand(help);
+			addCommand(about);
+			addCommand(quit);
+			assertValidCursor();
 
-				if (oldMode != MODE_GAME)
-				{
-					init();
-				}
+			if (oldMode != MODE_ABOUT && oldMode != MODE_GAME)
+			{
+				init();
 			}
+
 			checkConnections();
 			break;
 		case MODE_GAME_OVER:
-			// Always comes from MODE_GAME - only need to remove the reset button
-			removeCommand(rotate);
+			// No commands to show
 			break;
 		case MODE_RESIZE:
-			removeCommand(rotate);
-			removeCommand(reset);
-			removeCommand(resize);
-			removeCommand(quit);
+			addCommand(ok);
+			break;
+		case MODE_ABOUT:
 			addCommand(ok);
 			break;
 		}

@@ -379,6 +379,9 @@
         <antcall target="${target.to.call}" inheritall="false" inheritrefs="false">
             <param name="config.active" value=""/>
         </antcall>
+        <antcall target="${target.to.call}" inheritall="false" inheritrefs="false">
+            <param name="config.active" value="Debug"/>
+        </antcall>
     </target>
     <target name="jar-all">
         <antcall target="for-all-configs">
