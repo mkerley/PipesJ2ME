@@ -29,9 +29,10 @@ class PipesCanvas extends Canvas implements CommandListener
 	private int cols = 8;
 
 	private static final int MODE_GAME = 0;
-	private static final int MODE_GAME_OVER = 1;
+	private static final int MODE_YOU_WIN = 1;
 	private static final int MODE_RESIZE = 2;
 	private static final int MODE_ABOUT = 3;
+    private static final int MODE_GAME_OVER = 4;
 
 	private static final String STORE_NAME = "PipesStore";
 	private static final int STORE_SIZE_RECORD = 1;
@@ -41,6 +42,8 @@ class PipesCanvas extends Canvas implements CommandListener
 	private static final Font FONT_GAME_OVER = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD | Font.STYLE_ITALIC, Font.SIZE_LARGE);
 	private static final int COLOR_GAME_OVER = 0xff0000;
 	private static final int COLOR_GAME_OVER_SHADOW = 0x666666;
+	
+	private static final long DISPLAY_YOU_WIN_MILLISECONDS = 2000;
 	
 	private static final String HELP_ALERT_TITLE = "Pipes Help...";
 	private static final String HELP_ALERT_TEXT =
@@ -212,7 +215,7 @@ class PipesCanvas extends Canvas implements CommandListener
 		{
 			paintAbout(offscreen);
 		}
-		else if (mode == MODE_GAME_OVER)
+		else if (mode == MODE_YOU_WIN)
 		{
 			if (imgYouWin != null)
 			{
@@ -358,6 +361,9 @@ class PipesCanvas extends Canvas implements CommandListener
 		case MODE_GAME:
 			keyPressedGame(i);
 			break;
+		case MODE_YOU_WIN:
+			keyPressedYouWin(i);
+			break;
 		case MODE_GAME_OVER:
 			keyPressedGameOver(i);
 			break;
@@ -429,25 +435,16 @@ class PipesCanvas extends Canvas implements CommandListener
 			} // switch (i)
 		} // switch (getGameAction(i))
 	}
+	
+	private void keyPressedYouWin(int i)
+	{
+		// Duplicate behavior
+		keyPressedGameOver(i);
+	}
 
 	private void keyPressedGameOver(int i)
 	{
-		switch (getGameAction(i))
-		{
-		case FIRE:
-			commandAction(reset, this);
-			break;
-		default:
-			switch (i)
-			{
-			case KEY_NUM1:
-				commandAction(reset, this);
-				break;
-			case KEY_NUM3:
-				commandAction(reset, this);
-				break;
-			}
-		}
+		commandAction(reset, this);
 	}
 
 	private void keyPressedResize(int i)
@@ -684,7 +681,7 @@ class PipesCanvas extends Canvas implements CommandListener
 		if (connectedPipes.size() == (rows * cols))
 		{
 			// Winner!
-			setMode(MODE_GAME_OVER);
+			setMode(MODE_YOU_WIN);
 		}
 	}
 
@@ -724,6 +721,9 @@ class PipesCanvas extends Canvas implements CommandListener
 			}
 
 			checkConnections();
+			break;
+		case MODE_YOU_WIN:
+			new Timer().schedule(new HideYouWinTask(), DISPLAY_YOU_WIN_MILLISECONDS);
 			break;
 		case MODE_GAME_OVER:
 			// No commands to show
@@ -924,6 +924,18 @@ class PipesCanvas extends Canvas implements CommandListener
 			if (mode == MODE_ABOUT)
 			{
 				setMode(MODE_GAME);
+				repaint();
+			}
+		}
+	}
+	
+	private class HideYouWinTask extends TimerTask
+	{
+		public void run()
+		{
+			if (mode == MODE_YOU_WIN)
+			{
+				setMode(MODE_GAME_OVER);
 				repaint();
 			}
 		}
