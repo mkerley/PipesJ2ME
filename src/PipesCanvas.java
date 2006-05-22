@@ -314,6 +314,15 @@ class PipesCanvas extends Canvas implements CommandListener
 			g.fillRect(msgXOffset - 2, msgYOffset - 2, msgWidth + 4, msgHeight + 4);
 			g.setColor(RESIZE_TEXT_COLOR); // White text
 			g.drawString(msg, msgXOffset, msgYOffset, Graphics.LEFT | Graphics.TOP);
+			
+//#mdebug
+//# 			// Pipe size in upper left corner
+//# 			String pixelSize = "Pipe size: " + Pipe.getSize() + "px";
+//# 			g.setColor(0);
+//# 			g.fillRect(0, 0, font.stringWidth(pixelSize), font.getHeight());
+//# 			g.setColor(RESIZE_TEXT_COLOR);
+//# 			g.drawString(pixelSize, 0, 0, Graphics.LEFT | Graphics.TOP);
+//#enddebug
 		}
 	}
 
