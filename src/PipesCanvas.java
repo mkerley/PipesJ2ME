@@ -24,6 +24,8 @@ class PipesCanvas extends Canvas implements CommandListener
 	private Stack toBeChecked;
 
 	private Command rotate, quit, reset, resize, ok, about, help;
+//#debug debug
+//# 	private Command viewLog;
 
 	private int rows = 8;
 	private int cols = 8;
@@ -85,6 +87,10 @@ class PipesCanvas extends Canvas implements CommandListener
 
 		// Resize mode commands
 		ok = new Command("OK", Command.OK, 1);
+		
+//#mdebug debug
+//# 		viewLog = new Command("View log", Command.SCREEN, 2);
+//#enddebug
 
 		setCommandListener(this);
 
@@ -616,6 +622,14 @@ class PipesCanvas extends Canvas implements CommandListener
 			alert.setTimeout(Alert.FOREVER);
 			Display.getDisplay(PipesMIDlet.getInstance()).setCurrent(alert);
 		}
+//#mdebug debug
+//# 		else if (command == viewLog)
+//# 		{
+//# 			Alert alert = new Alert("Debug Log", PipesMIDlet.getLogContents(), null, null);
+//# 			alert.setTimeout(Alert.FOREVER);
+//# 			Display.getDisplay(PipesMIDlet.getInstance()).setCurrent(alert);
+//# 		}
+//#enddebug
 	}
 
 	public void checkConnections()
@@ -722,6 +736,10 @@ class PipesCanvas extends Canvas implements CommandListener
 			addCommand(help);
 			addCommand(about);
 			addCommand(quit);
+
+//#debug debug
+//# 			addCommand(viewLog);
+			
 			assertValidCursor();
 
 			if (oldMode != MODE_ABOUT && oldMode != MODE_GAME)

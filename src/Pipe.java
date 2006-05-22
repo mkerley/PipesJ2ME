@@ -1,4 +1,7 @@
+import javax.microedition.lcdui.Alert;
+import javax.microedition.lcdui.Display;
 import javax.microedition.lcdui.Graphics;
+import javax.microedition.lcdui.Image;
 
 /**
  * DESCRIPTION GOES HERE.
@@ -18,6 +21,12 @@ public class Pipe
 	private static final int CONN_OVERFLOW = 16;
 
 	private static int size = 9;
+	
+	private static final int[] bitmapSizes = { 42, 21, 9 }; // Descending order
+	private static Image[] disconnectedBmps = null;
+	private static Image[] connectedBmps = null;
+	private static boolean bmpsLoaded = false;
+	private static final int NUM_BMPS = 16;
 
 	/** Cached value of (size + 1) - this is used a lot, so we can avoid calculating it all the time */
 	private static int sizePlusOne = size + 1;
@@ -40,13 +49,25 @@ public class Pipe
 	public void paint(Graphics g, boolean bright)
 	{
 		if (bright)
-			paint(g, inConnectedSet ? CONNECTED_COLOR : DISCONNECTED_COLOR);
+			paint(g, inConnectedSet ? CONNECTED_COLOR : DISCONNECTED_COLOR, true);
 		else
-			paint(g, inConnectedSet ? DIM_CONNECTED_COLOR : DIM_DISCONNECTED_COLOR);
+			paint(g, inConnectedSet ? DIM_CONNECTED_COLOR : DIM_DISCONNECTED_COLOR, false);
 	}
-
-	public void paint(Graphics g, int color)
+	
+	public void paint(Graphics g, int color, boolean preferBitmap)
 	{
+		if (preferBitmap && bmpsLoaded)
+		{
+			// Try to use a bitmap
+			if (color == CONNECTED_COLOR)
+				g.drawImage(connectedBmps[connections], x, y, Graphics.TOP | Graphics.LEFT);
+			else
+				g.drawImage(disconnectedBmps[connections], x, y, Graphics.TOP | Graphics.LEFT);
+			
+			return;
+		}
+		
+		// Not using a bitmap - draw it the old-fashioned way
 		g.setColor(0x000000); // black background
 		g.fillRect(x, y, size, size);
 
@@ -104,6 +125,60 @@ public class Pipe
 			}
 			connections >>= 1;
 		}
+	}
+	
+	/**
+	 * Loads the largest available bitmaps, up to the preferred size.
+	 * @param preferredSize Maximum size to load
+	 * @return Actual size loaded (0 if loading failed, or no appropriate size
+	 *         was available)
+	 */
+	private static int loadBitmaps(int preferredSize)
+	{
+		//#debug debug
+//# 		PipesMIDlet.log("loadBitmaps(" + preferredSize + ")");
+		for (int i = 0; i < bitmapSizes.length; ++i)
+		{
+			if (bitmapSizes[i] <= preferredSize)
+			{
+				// Load this size
+				int size = bitmapSizes[i];
+				try
+				{
+					Image allPipes = Image.createImage("/" + bitmapSizes[i] + ".png");
+					
+					connectedBmps = new Image[NUM_BMPS];
+					disconnectedBmps = new Image[NUM_BMPS];
+					
+					for (int n = 0; n < NUM_BMPS; ++n)
+					{
+						disconnectedBmps[n] = extractImage(allPipes, n * size, 0, size, size);
+						connectedBmps[n] = extractImage(allPipes, n * size, size, size, size);
+					}
+					
+					bmpsLoaded = true;
+					return size;
+				}
+				catch (Exception e)
+				{
+					// Error reading image file
+					e.printStackTrace();
+					bmpsLoaded = false;
+					return 0;
+				}
+			}
+		}
+		
+		// Didn't find a suitable size
+		bmpsLoaded = false;
+		return 0;
+	}
+	
+	private static Image extractImage(Image source, int xOffset, int yOffset, int width, int height)
+	{
+		Image img = Image.createImage(width, height);
+		img.getGraphics().drawImage(source, -xOffset, -yOffset, Graphics.TOP | Graphics.LEFT);
+		return img;
 	}
 
 	public boolean isConnected(int dir)
@@ -168,12 +243,23 @@ public class Pipe
 		return size;
 	}
 
-	public static void setSize(int size)
+	public static int setSize(int size)
 	{
 		Pipe.size = size;
-		Pipe.sizePlusOne = size + 1;
-		Pipe.size_2 = size / 2;
-		Pipe.size_3 = size / 3;
+		
+		// Downsize to an appropriate bitmap size
+		int loadedSize = loadBitmaps(size);
+//#mdebug debug
+//# 		PipesMIDlet.log("Loaded bitmaps: " + loadedSize);
+//#enddebug
+		if (loadedSize > 0)
+			Pipe.size = loadedSize;
+		
+		Pipe.sizePlusOne = Pipe.size + 1;
+		Pipe.size_2 = Pipe.size / 2;
+		Pipe.size_3 = Pipe.size / 3;
+		
+		return Pipe.size;
 	}
 
 	public boolean isInConnectedSet()

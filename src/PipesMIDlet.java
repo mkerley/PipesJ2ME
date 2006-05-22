@@ -20,6 +20,10 @@ public class PipesMIDlet extends MIDlet
 					"Concept by Ernest Pazera",
 					"http://www.playdeez.com"
 			};
+	
+//#mdebug debug
+//# 	private static StringBuffer logger = new StringBuffer();
+//#enddebug
 
 	public static final Font largeFont = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, Font.SIZE_LARGE);
 	public static final Font mediumFont = Font.getFont(Font.FACE_PROPORTIONAL, Font.STYLE_BOLD, Font.SIZE_MEDIUM);
@@ -40,11 +44,11 @@ public class PipesMIDlet extends MIDlet
 	protected void startApp() throws MIDletStateChangeException
 	{
 //#debug debug
-//# 		System.out.println("startApp()");
+//# 		PipesMIDlet.getInstance().log("startApp()");
 		
 //#mdebug info
-//# 		System.out.println("Screen width:  " + pipesCanvas.getWidth());
-//# 		System.out.println("Screen height: " + pipesCanvas.getHeight());
+//# 		PipesMIDlet.getInstance().log("Screen width:  " + pipesCanvas.getWidth());
+//# 		PipesMIDlet.getInstance().log("Screen height: " + pipesCanvas.getHeight());
 //#enddebug
 		
 		try
@@ -70,7 +74,7 @@ public class PipesMIDlet extends MIDlet
 	protected void pauseApp()
 	{
 //#debug debug
-//# 		System.out.println("pauseApp()");
+//# 		PipesMIDlet.log("pauseApp()");
 		try
 		{
 			pipesCanvas.save();
@@ -85,7 +89,7 @@ public class PipesMIDlet extends MIDlet
 	protected void destroyApp(boolean b) throws MIDletStateChangeException
 	{
 //#debug debug
-//# 		System.out.println("destroyApp()");
+//# 		log("destroyApp()");
 		try
 		{
 			pipesCanvas.save();
@@ -114,4 +118,22 @@ public class PipesMIDlet extends MIDlet
 	{
 		return instance;
 	}
+	
+//#mdebug debug
+//# 	public static void log(String str)
+//# 	{
+//# 		System.out.println(str);
+//# 		logger.append(str).append('\n');
+//# 	}
+//# 	
+//# 	public static void clearLog()
+//# 	{
+//# 		logger = new StringBuffer();
+//# 	}
+//# 	
+//# 	public static String getLogContents()
+//# 	{
+//# 		return logger.toString();
+//# 	}
+//#enddebug
 }
