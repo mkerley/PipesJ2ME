@@ -151,7 +151,8 @@ class PipesCanvas extends Canvas implements CommandListener
 		scramblePipes();
 		checkConnections();
 
-		setMode(MODE_GAME);
+		if (mode != MODE_GAME)
+			setMode(MODE_GAME);
 	}
 
 	private void assertValidCursor()
@@ -741,6 +742,7 @@ class PipesCanvas extends Canvas implements CommandListener
 //# 			addCommand(viewLog);
 			
 			assertValidCursor();
+			Pipe.loadBitmaps();
 
 			if (oldMode != MODE_ABOUT && oldMode != MODE_GAME)
 			{

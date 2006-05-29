@@ -22,7 +22,7 @@ public class Pipe
 
 	private static int size = 9;
 	
-	private static final int[] bitmapSizes = { 42, 21, 9 }; // Descending order
+	private static final int[] bitmapSizes = { 42, 21, 15, 9 }; // Descending order
 	private static Image[] disconnectedBmps = null;
 	private static Image[] connectedBmps = null;
 	private static boolean bmpsLoaded = false;
@@ -127,49 +127,59 @@ public class Pipe
 		}
 	}
 	
-	/**
-	 * Loads the largest available bitmaps, up to the preferred size.
-	 * @param preferredSize Maximum size to load
-	 * @return Actual size loaded (0 if loading failed, or no appropriate size
-	 *         was available)
-	 */
-	private static int loadBitmaps(int preferredSize)
+	private static int getBestBitmapSize(int preferredSize)
 	{
-		//#debug debug
-//# 		PipesMIDlet.log("loadBitmaps(" + preferredSize + ")");
 		for (int i = 0; i < bitmapSizes.length; ++i)
 		{
 			if (bitmapSizes[i] <= preferredSize)
 			{
-				// Load this size
-				int size = bitmapSizes[i];
-				try
-				{
-					Image allPipes = Image.createImage("/" + bitmapSizes[i] + ".png");
-					
-					connectedBmps = new Image[NUM_BMPS];
-					disconnectedBmps = new Image[NUM_BMPS];
-					
-					for (int n = 0; n < NUM_BMPS; ++n)
-					{
-						disconnectedBmps[n] = extractImage(allPipes, n * size, 0, size, size);
-						connectedBmps[n] = extractImage(allPipes, n * size, size, size, size);
-					}
-					
-					bmpsLoaded = true;
-					return size;
-				}
-				catch (Exception e)
-				{
-					// Error reading image file
-					e.printStackTrace();
-					bmpsLoaded = false;
-					return 0;
-				}
+				return bitmapSizes[i];
 			}
 		}
 		
-		// Didn't find a suitable size
+		// Couldn't find a good size
+		return 0;
+	}
+	
+	/**
+	 * Loads bitmaps at the appropriate size.
+	 * @return Actual size loaded (0 if loading failed, or no appropriate size
+	 *         was available)
+	 */
+	public static int loadBitmaps()
+	{
+		//#debug debug
+//# 		PipesMIDlet.log("loadBitmaps()");
+		
+		if (size > 0)
+		{
+			// Load this size
+			try
+			{
+				Image allPipes = Image.createImage("/" + size + ".png");
+
+				connectedBmps = new Image[NUM_BMPS];
+				disconnectedBmps = new Image[NUM_BMPS];
+
+				for (int n = 0; n < NUM_BMPS; ++n)
+				{
+					disconnectedBmps[n] = extractImage(allPipes, n * size, 0, size, size);
+					connectedBmps[n] = extractImage(allPipes, n * size, size, size, size);
+				}
+
+				bmpsLoaded = true;
+				return size;
+			}
+			catch (Exception e)
+			{
+				// Error reading image file
+				e.printStackTrace();
+				bmpsLoaded = false;
+				return 0;
+			}
+		}
+		
+		// Didn't find a suitable size, or something failed
 		bmpsLoaded = false;
 		return 0;
 	}
@@ -243,17 +253,16 @@ public class Pipe
 		return size;
 	}
 
-	public static int setSize(int size)
+	public static int setSize(int preferredSize)
 	{
-		Pipe.size = size;
+		Pipe.size = preferredSize;
 		
 		// Downsize to an appropriate bitmap size
-		int loadedSize = loadBitmaps(size);
-//#mdebug debug
-//# 		PipesMIDlet.log("Loaded bitmaps: " + loadedSize);
-//#enddebug
-		if (loadedSize > 0)
-			Pipe.size = loadedSize;
+		int bestSize = getBestBitmapSize(preferredSize);
+//#debug debug
+//# 		PipesMIDlet.log("Best size: " + bestSize);
+		if (bestSize > 0)
+			Pipe.size = bestSize;
 		
 		Pipe.sizePlusOne = Pipe.size + 1;
 		Pipe.size_2 = Pipe.size / 2;
@@ -270,13 +279,5 @@ public class Pipe
 	public void setInConnectedSet(boolean inConnectedSet)
 	{
 		this.inConnectedSet = inConnectedSet;
-	}
-
-	public String toString()
-	{
-		return "Builder{" +
-				"gridX=" + gridX +
-				", gridY=" + gridY +
-				'}';
 	}
 }
