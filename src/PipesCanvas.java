@@ -796,6 +796,12 @@ class PipesCanvas extends Canvas implements CommandListener
 			checkConnections();
 			break;
 		case MODE_YOU_WIN:
+			// Zoom out to show the whole board
+			initPipeSize();
+			Pipe.loadBitmaps();
+			repositionPipes();
+			
+			// Show the "You Win" banner, but only for a few seconds
 			new Timer().schedule(new HideYouWinTask(), DISPLAY_YOU_WIN_MILLISECONDS);
 			break;
 		case MODE_GAME_OVER:

@@ -1,8 +1,8 @@
 MIDlet-1: Pipes,/icon.png,PipesMIDlet
-MIDlet-Jar-Size: 47724
+MIDlet-Jar-Size: 47728
 MIDlet-Jar-URL: Pipes.jar
 MIDlet-Name: Pipes
 MIDlet-Vendor: kornhornio.net
-MIDlet-Version: 1.1.1
+MIDlet-Version: 1.1.2
 MicroEdition-Configuration: CLDC-1.0
 MicroEdition-Profile: MIDP-1.0
