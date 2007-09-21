@@ -106,7 +106,7 @@
                 <pathelement path="${libs.j2me_ant_ext.classpath}"/>
             </classpath>
         </taskdef>
-        <uptodate property="no.clean.before.build" targetfile="${preprocessed.dir}/.timestamp">
+        <uptodate property="no.clean.before.build" targetfile="${build.dir}/.timestamp">
             <srcfiles dir="nbproject">
                 <include name="project.properties"/>
                 <include name="build-impl.xml"/>
@@ -159,7 +159,7 @@
     <target name="pre-preprocess"/>
     <target name="preprocess" depends="init,pre-preprocess,deps-jar,conditional-clean" description="Preprocess project sources.">
         <mkdir dir="${preprocessed.dir}"/>
-        <echo message="ignore me" file="${preprocessed.dir}/.timestamp"/>
+        <echo message="ignore me" file="${build.dir}/.timestamp"/>
         <nb-prep destdir="${preprocessed.dir}" preprocessfor="${config.active.name},${abilities},DebugLevel=${debug.level}" encoding="${javac.encoding}">
             <fileset dir="${src.dir}" defaultexcludes="${filter.use.standard}" excludes="${filter.excludes.evaluated}"/>
         </nb-prep>
@@ -298,7 +298,7 @@
         <nb-run jadfile="${dist.dir}/${dist.jad}" jarfile="${dist.dir}/${dist.jar}" jadurl="${dist.jad.url}" device="${platform.device}" platformhome="${platform.home}" platformtype="${platform.type}" execmethod="${run.method}" securitydomain="${evaluated.run.security.domain}" commandline="${platform.runcommandline}" classpath="${platform.bootclasspath}:${dist.dir}/${dist.jar}" cmdoptions="${run.cmd.options}"/>
     </target>
     <target name="debug" description="Debug project." depends="init,clean,jar">
-        <delete file="${preprocessed.dir}/.timestamp"/>
+        <delete file="${build.dir}/.timestamp"/>
         <parallel>
             <nb-run debug="true" debugsuspend="true" debugserver="true" debuggeraddressproperty="jpda.port" platformtype="${platform.type}" platformhome="${platform.home}" device="${platform.device}" jadfile="${dist.dir}/${dist.jad}" jarfile="${dist.dir}/${dist.jar}" execmethod="${run.method}" securitydomain="${evaluated.run.security.domain}" commandline="${platform.debugcommandline}" classpath="${platform.bootclasspath}:${dist.dir}/${dist.jar}" cmdoptions="${run.cmd.options}"/>
             <sequential>
@@ -348,6 +348,7 @@
         <delete file="${obfuscator.destjar}"/>
         <delete dir="${obfuscated.classes.dir}"/>
         <delete dir="${preverify.classes.dir}"/>
+        <delete file="${build.dir}/.timestamp"/>
         <delete file="${build.dir}/manifest.mf"/>
         <delete file="${dist.dir}/${dist.jar}"/>
         <delete file="${dist.dir}/${dist.jad}"/>

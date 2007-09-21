@@ -200,6 +200,14 @@ public class Pipe
 	{
 		return x;
 	}
+	
+	/**
+	 * Automatically set X value based on grid position.
+	 */
+	public void setX()
+	{
+		setX(gridX * sizePlusOne + 1);
+	}
 
 	public void setX(int x)
 	{
@@ -209,6 +217,14 @@ public class Pipe
 	public int getY()
 	{
 		return y;
+	}
+	
+	/**
+	 * Automatically set Y value based on grid position.
+	 */
+	public void setY()
+	{
+		setY(gridY * sizePlusOne + 1);
 	}
 
 	public void setY(int y)
@@ -224,7 +240,7 @@ public class Pipe
 	public void setGridX(int gridX)
 	{
 		this.gridX = gridX;
-		setX(gridX * sizePlusOne + 1);
+		setX();
 	}
 
 	public int getGridY()
@@ -235,7 +251,7 @@ public class Pipe
 	public void setGridY(int gridY)
 	{
 		this.gridY = gridY;
-		setY(gridY * sizePlusOne + 1);
+		setY();
 	}
 
 	public byte getConnections()
@@ -269,6 +285,25 @@ public class Pipe
 		Pipe.size_3 = Pipe.size / 3;
 		
 		return Pipe.size;
+	}
+	
+	public static int incrementSize()
+	{
+		// Find the next bitmap size
+		int bestSize = Pipe.size;
+		for (int i = 0; i < bitmapSizes.length; ++i)
+		{
+			if (bitmapSizes[i] > Pipe.size)
+				bestSize = bitmapSizes[i];
+		}
+		
+		setSize(bestSize);
+		return Pipe.size;
+	}
+	
+	public static int decrementSize()
+	{
+		return setSize(Pipe.size - 1);
 	}
 
 	public boolean isInConnectedSet()

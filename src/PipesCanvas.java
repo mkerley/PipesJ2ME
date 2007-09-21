@@ -29,6 +29,9 @@ class PipesCanvas extends Canvas implements CommandListener
 
 	private int rows = 8;
 	private int cols = 8;
+	
+	private static int scrollX = 0;
+	private static int scrollY = 0;
 
 	private static final int MODE_GAME = 0;
 	private static final int MODE_YOU_WIN = 1;
@@ -57,6 +60,7 @@ class PipesCanvas extends Canvas implements CommandListener
 			"Controls:\n" +
 			" * Joystick - Move cursor\n" +
 			" * OK/center button - Rotate clockwise\n" +
+			" * #/* buttons - Zoom in/out\n" +
 			"\n" +
 			"Alternate controls:\n" +
 			" * 2/4/6/8 - Move cursor\n" +
@@ -250,12 +254,44 @@ class PipesCanvas extends Canvas implements CommandListener
 		g.setColor(0);
 		g.fillRect(0, 0, getWidth(), getHeight());
 
-		// Calculate offset so that grid will be centered on the screen
+		// Calculate offset so that grid will be centered on the screen,
+		// or so the cursor will be on-screen if we're zoomed in
 		int gridWidth = cols * (Pipe.getSize() + 1) + 1;
 		int gridHeight = rows * (Pipe.getSize() + 1) + 1;
-		int xOffset = (getWidth() - gridWidth) / 2;
-		int yOffset = (getHeight() - gridHeight) / 2;
+		int xOffset, yOffset;
+		
+		if (gridWidth <= getWidth())
+			xOffset = (getWidth() - gridWidth) / 2;
+		else
+		{
+			// Scroll to keep cursor on-screen
+			int cursorLeft = cursorX * (Pipe.getSize() + 1);
+			xOffset = -(cursorLeft + Pipe.getSize() / 2 - getWidth() / 2);
+			
+			// Don't leave blank space on the left
+			xOffset = Math.min(xOffset, 0);
+			
+			// Don't leave blank space on the right
+			xOffset = Math.max(xOffset, getWidth() - gridWidth);
+		}
+		
+		if (gridHeight <= getHeight())
+			yOffset = (getHeight() - gridHeight) / 2;
+		else
+		{
+			// Scroll to keep cursor on-screen
+			int cursorTop = cursorY * (Pipe.getSize() + 1);
+			yOffset = -(cursorTop + Pipe.getSize() / 2 - getHeight() / 2);
+			
+			// Don't leave blank space above
+			yOffset = Math.min(yOffset, 0);
+			
+			// Don't leave blank space below
+			yOffset = Math.max(yOffset, getHeight() - gridHeight);
+		}
 
+//#debug
+//# 		PipesMIDlet.log("g.translate(" + xOffset + ", " + yOffset + ")");
 		g.translate(xOffset, yOffset);
 
 		if (mode != MODE_RESIZE)
@@ -446,6 +482,14 @@ class PipesCanvas extends Canvas implements CommandListener
 			case KEY_NUM3:
 				pipes[cursorX][cursorY].rotate(true);
 				checkConnections();
+				repaint();
+				break;
+			case KEY_STAR:
+				zoomOut();
+				repaint();
+				break;
+			case KEY_POUND:
+				zoomIn();
 				repaint();
 				break;
 			} // switch (i)
@@ -758,6 +802,7 @@ class PipesCanvas extends Canvas implements CommandListener
 			// No commands to show
 			break;
 		case MODE_RESIZE:
+			initPipeSize();
 			addCommand(ok);
 			break;
 		case MODE_ABOUT:
@@ -944,6 +989,36 @@ class PipesCanvas extends Canvas implements CommandListener
 		setMode(MODE_ABOUT);
 		repaint();
 		new Timer().schedule(new CloseAboutTask(), time);
+	}
+
+	private void zoomOut()
+	{
+		Pipe.decrementSize();
+		Pipe.loadBitmaps();
+		repositionPipes();
+	}
+
+	private void zoomIn()
+	{
+		Pipe.incrementSize();
+		Pipe.loadBitmaps();
+		repositionPipes();
+	}
+	
+	/**
+	 * Automatically reposition all pipe segments based on changes
+	 * such as zoom level or scroll position.
+	 */
+	private void repositionPipes()
+	{
+		for (int y = 0; y < rows; ++y)
+		{
+			for (int x = 0; x < cols; ++x)
+			{
+				pipes[x][y].setX();
+				pipes[x][y].setY();
+			}
+		}
 	}
 
 	private class CloseAboutTask extends TimerTask
