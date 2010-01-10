@@ -1,0 +1,20 @@
+=======================================================================
+Pipes J2ME Development
+Written by Michael Kerley (mkerley@gmail.com)
+=======================================================================
+
+Tools you will need:
+
+* Current version of Sun JDK
+* Java Wireless Toolkit 2.5.2_01 for CLDC
+* NetBeans with the Mobility plugin
+* Ant (should be included with NetBeans)
+
+NetBeans was chosen because it comes prepackaged with the following:
+* An obfuscator, which helps to reduce the size of the compiled output
+* A source code preprocessor (Antenna?) that allows us to completely
+  strip out debugging code, leaving no trace and no performance
+  penalties
+
+Thanks to these bundled tools, NetBeans makes it rather easy to get up
+and running with the project.
